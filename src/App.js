@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import {
+  increaseCounter,
+  decreaseCounter,
+} from "./redux/Counter/counter.actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import UserListing from "./screens/UserListing";
+import CreateNewUser from "./screens/CreateNewUser";
 
 function App() {
+  const disptch = useDispatch();
+  let countes = useSelector((state) => state.counter.count);
+  const [number, setNumber] = useState(2);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React Redux</h1>
+      <div>Count: {countes}</div>
+
+      <button onClick={() => disptch(increaseCounter(number))}>
+        Increase Count
+      </button>
+
+      <button onClick={() => disptch(decreaseCounter())}>Decrease Count</button>
+      <UserListing/>
+      <CreateNewUser/>
     </div>
   );
 }
